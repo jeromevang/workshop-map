@@ -18,5 +18,8 @@
   "homepage": "https://github.com/jeromevang/workshop-map#readme",
   "devDependencies": {
     "parcel": "^2.4.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.7.1"
   }
 }

@@ -23,7 +23,7 @@ input {
     width: 360px;
     background-color: #1f6694;
     position: fixed !important;
-    z-index: 1;
+    z-index: 1000;
     overflow: auto;
     padding: 20px;
 
@@ -32,3 +32,9 @@ input {
 .header {
     text-align: center;
 }
+
+#map { 
+    height: 100%;
+    position: absolute !important;
+    width: -webkit-fill-available;
+ }
