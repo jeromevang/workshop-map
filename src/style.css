@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+label {
+    display: block;
+}
+
+input {
+    width: -webkit-fill-available;
+    height: 30px;
+    border-radius: 5px;
+    margin: 4px 0px;
+}
+
+.viewport {
+    color: white;
+}
+
+.sidebar {
+    height: 100%;
+    width: 360px;
+    background-color: #1f6694;
+    position: fixed !important;
+    z-index: 1;
+    overflow: auto;
+    padding: 20px;
+
+}
+
+.header {
+    text-align: center;
+}
