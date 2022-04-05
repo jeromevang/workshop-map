@@ -1,5 +1,5 @@
 function geoJsonInit() {
-  localStorage.setItem("geoJSON", JSON.stringify({
+  return{
     type: 'FeatureCollection',
     features: [
       {
@@ -18,7 +18,7 @@ function geoJsonInit() {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [4.395765, 51.920671]
+          coordinates: [4.295715, 51.820611]
         },
         properties: {
           id: "asd-123",
@@ -27,7 +27,7 @@ function geoJsonInit() {
         }
       },
     ]
-  }))
+  }
 }
 
 export default geoJsonInit

@@ -1,3 +1,4 @@
+import mapShow from "../components/map/map";
 import { addPlace } from "../components/sidebar/sidebar.js";
 import geoJsonInit from "./initgeojson.js"; "../js/initgeojson";
 import placeList from "../js/placelist";
@@ -18,6 +19,8 @@ import L, {
   GeoJSON
 } from 'leaflet';
 
+import mapShow from "../components/map/map.js";
+
 Marker.prototype.options.icon = icon({
   iconRetinaUrl,
   iconUrl,
@@ -29,43 +32,25 @@ Marker.prototype.options.icon = icon({
   shadowSize: [41, 41],
 });
 
-document.getElementById("addplace").addEventListener("click", function () { addPlace(document.getElementById("pname").value) });
-document.getElementById("initgeojson").addEventListener("click", function () { geoJsonInit(), location.reload() });
+const data = geoJsonInit()
+const map = mapShow(data)
+
+
+
+document.getElementById("addplace").addEventListener("click", function () { addPlace(map, data, document.getElementById("pname").value,document.getElementById("cname").value) });
+document.getElementById("initgeojson").addEventListener("click", function () { location.reload() });
 document.getElementById("delgeojson").addEventListener("click", function () { localStorage.removeItem("geoJSON"),location.reload() });
 
 
-const placelist = placeList()
-const data = JSON.parse(localStorage.getItem("geoJSON"));
-
-// Initialize the map
-var map = L.map('map', {
-  scrollWheelZoom: true
-});
-
-// Set the position and zoom level of the map
-map.setView([47.70, 13.35], 7);
+const placelist = placeList(data)
 
 
-L.marker([47.70, 13.35]).addTo(map);
 
-
-L.geoJSON(data, {
-    style: function (feature) {
-        return {color: feature.properties.color};
-    }
-}).bindPopup(function (layer) {
-    return layer.feature.properties.description;
-}).addTo(map);
-
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
 
 let content=""
 for (const [key, value] of Object.entries(placelist)) {
     content = content + `<div class="listitem"><div>${value[0]}</div><div>${value[1]}</div></div>`;
-    console.log("log"+`${key}: ${value}`);
+    //console.log("log"+`${key}: ${value}`);
 }
 document.getElementById("list").innerHTML = content
 
