@@ -1,4 +1,6 @@
 import { addPlace } from "../components/sidebar/sidebar.js";
+import geoJsonInit from "./initgeojson.js"; "../js/initgeojson";
+import placeList from "../js/placelist";
 import '../../node_modules/leaflet/dist/leaflet.css';
 import iconRetinaUrl from '../../node_modules/leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from '../../node_modules/leaflet/dist/images/marker-icon.png';
@@ -28,25 +30,12 @@ Marker.prototype.options.icon = icon({
 });
 
 document.getElementById("addplace").addEventListener("click", function () { addPlace(document.getElementById("pname").value) });
-var data={
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [4.395765, 51.920671]  
-        },
-        properties: {
-          id: "asd-123",
-          name: 'Yokohama Ramen Saito',
-          stars: 5
-        }
-      },
+document.getElementById("initgeojson").addEventListener("click", function () { geoJsonInit(), location.reload() });
+document.getElementById("delgeojson").addEventListener("click", function () { localStorage.removeItem("geoJSON"),location.reload() });
 
-    ]
-}
 
+const placelist = placeList()
+const data = JSON.parse(localStorage.getItem("geoJSON"));
 
 // Initialize the map
 var map = L.map('map', {
@@ -72,3 +61,12 @@ L.geoJSON(data, {
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
+let content=""
+for (const [key, value] of Object.entries(placelist)) {
+    content = content + `<div class="listitem"><div>${value[0]}</div><div>${value[1]}</div></div>`;
+    console.log("log"+`${key}: ${value}`);
+}
+document.getElementById("list").innerHTML = content
+
+
